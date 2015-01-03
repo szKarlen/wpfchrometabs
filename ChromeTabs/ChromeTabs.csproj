@@ -71,7 +71,13 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\chrome-app-theme-default_200_percent-mac-tab_active_center.png" />
+    <Resource Include="Assets\chrome-app-theme-default_200_percent-mac-tab_active_left.png" />
+    <Resource Include="Assets\chrome-app-theme-default_200_percent-mac-tab_active_right.png" />
+    <Resource Include="Assets\chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" />
+    <Resource Include="Assets\chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\chrome-app-theme-default_200_percent-newtab.png" />
     <Resource Include="Assets\chrome-app-theme-default_200_percent-newtab_hover.png" />
