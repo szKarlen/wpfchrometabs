@@ -85,7 +85,7 @@
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False"/>
-                            <Button Grid.Column="1" Style="{StaticResource NewButtonStyle}" Width="20" Height="12" Margin="-10,0,0,0" HorizontalAlignment="Left">
+                            <Button Grid.Column="1" Style="{StaticResource NewButtonStyle}" Width="35" Height="19" Margin="-10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
 
                             </Button>
                         </Grid>
