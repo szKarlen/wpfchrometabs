@@ -62,25 +62,20 @@ namespace ChromeTabs
             this.rightMargin = 0.0;
             this.overlap = 20.0;
             this.defaultMeasureHeight = 30.0;
-
-            ComponentResourceKey key = new ComponentResourceKey(typeof(ChromeTabPanel), "addButtonStyle");
-            Style addButtonStyle = (Style)this.FindResource(key);
-            this.addButton = new Button { Style = addButtonStyle };
-            this.addButtonSize = new Size(20, 12);
         }
 
         protected override int VisualChildrenCount
         {
-            get { return base.VisualChildrenCount + 1; }
+            get { return base.VisualChildrenCount; }
         }
 
         protected override Visual GetVisualChild(int index)
         {
             if(index == this.VisualChildrenCount - 1)
             {
-                return this.addButton;
+                return base.GetVisualChild(index);
             }
-            else if(index < this.VisualChildrenCount - 1)
+            if(index < this.VisualChildrenCount - 1)
             {
                 return base.GetVisualChild(index);
             }
@@ -103,7 +98,6 @@ namespace ChromeTabs
             double activeWidth = finalSize.Width - this.leftMargin - this.rightMargin;
             this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * overlap)/ this.Children.Count, this.minTabWidth), this.maxTabWidth);
             ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
-            this.addButton.Visibility = this.currentTabWidth > this.minTabWidth ? Visibility.Visible : Visibility.Collapsed;
             this.finalSize = finalSize;
             double offset = leftMargin;
             foreach (UIElement element in this.Children)
@@ -114,8 +108,6 @@ namespace ChromeTabs
                 element.Arrange(new Rect(offset, 0, this.currentTabWidth, finalSize.Height - thickness));
                 offset += this.currentTabWidth - overlap;
             }
-            this.addButtonRect = new Rect(new Point(offset + overlap, (finalSize.Height - this.addButtonSize.Height) / 2), this.addButtonSize);
-            this.addButton.Arrange(this.addButtonRect);
             return finalSize;
         }
 
@@ -124,7 +116,6 @@ namespace ChromeTabs
             double activeWidth = double.IsPositiveInfinity(availableSize.Width) ? 500 : availableSize.Width - this.leftMargin - this.rightMargin;
             this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * overlap) / this.Children.Count, this.minTabWidth), this.maxTabWidth);
             ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
-            this.addButton.Visibility = this.currentTabWidth > this.minTabWidth ? Visibility.Visible : Visibility.Collapsed;
             double height = double.IsPositiveInfinity(availableSize.Height) ? this.defaultMeasureHeight : availableSize.Height;
             Size resultSize = new Size(0, availableSize.Height);
             foreach (UIElement child in this.Children)
@@ -134,8 +125,6 @@ namespace ChromeTabs
                 child.Measure(tabSize);
                 resultSize.Width += child.DesiredSize.Width - overlap;
             }
-            this.addButton.Measure(this.addButtonSize);
-            resultSize.Width += this.addButtonSize.Width;
             return resultSize;
         }
 
@@ -155,13 +144,7 @@ namespace ChromeTabs
         {
             base.OnPreviewMouseLeftButtonDown(e);
             this.slideIntervals = null;
-            if(this.addButtonRect.Contains(e.GetPosition(this)))
-            {
-                this.addButton.Background = Brushes.DarkGray;
-                this.InvalidateVisual();
-                return;
-            }
-
+            
             this.downPoint = e.GetPosition(this);
             HitTestResult result = VisualTreeHelper.HitTest(this, this.downPoint);
             if(result == null) { return; }
@@ -186,16 +169,6 @@ namespace ChromeTabs
         protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
             base.OnPreviewMouseMove(e);
-            if(this.addButtonRect.Contains(e.GetPosition(this)) && this.addButton.Background != Brushes.White && this.addButton.Background != Brushes.DarkGray)
-            {
-                this.addButton.Background = Brushes.White;
-                this.InvalidateVisual();
-            }
-            else if(!this.addButtonRect.Contains(e.GetPosition(this)) && this.addButton.Background != null)
-            {
-                this.addButton.Background = null;
-                this.InvalidateVisual();
-            }
             if(this.draggedTab == null || this.draggingWindow) { return; }
             Point nowPoint = e.GetPosition(this);
             Thickness margin = new Thickness(nowPoint.X - this.downPoint.X, 0, this.downPoint.X - nowPoint.X, 0);
@@ -262,16 +235,6 @@ namespace ChromeTabs
         {
             base.OnPreviewMouseLeftButtonUp(e);
             this.draggingWindow = false;
-            if(this.addButtonRect.Contains(e.GetPosition(this)) && this.addButton.Background == Brushes.DarkGray)
-            {
-                this.addButton.Background = null;
-                this.InvalidateVisual();
-                if(this.addButton.Visibility == Visibility.Visible)
-                {
-                    ParentTabControl.AddTab(new Label(), true); // HACK: Do something with default templates, here.
-                }
-                return;
-            }
             if(this.IsMouseCaptured)
             {
                 Mouse.Capture(null);
@@ -405,9 +368,5 @@ namespace ChromeTabs
         private ChromeTabItem draggedTab;
         private Point downPoint;
         private ChromeTabControl parent;
-
-        private Rect addButtonRect;
-        private Size addButtonSize;
-        private Button addButton;
     }
 }
