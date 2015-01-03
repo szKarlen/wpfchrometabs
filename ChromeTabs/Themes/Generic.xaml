@@ -3,12 +3,33 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ChromeTabs"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type local:ChromeTabPanel}, ResourceId=addButtonStyle}" TargetType="{x:Type Button}">
+    <Style x:Key="NewButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-newtab.png"></ImageBrush>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
-                    <Grid SnapsToDevicePixels="True">
-                        <Path Fill="{TemplateBinding Background}" Stretch="Fill" Stroke="#FF999999" Data="M36.904667,19.333333 C42.238,19.25 36.238,0.5 34.863116,0.5 23.863116,0.5 19.613032,0.5 2.8630319,0.5 -3.2202511,0.5 4.0712139,19.416667 6.5711261,19.416667 15.593514,19.416667 28.609259,19.462949 36.904667,19.333333 z" />
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-newtab_hover.png"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-newtab_pressed.png"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    <Grid Background="{TemplateBinding Background}">
+
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -58,19 +79,18 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid Margin="0,0,0,0" Width="auto" Height="30" MinWidth="100">
+                            <Grid.Background>
+                                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                                    <GradientStop Color="#FFEEEEEE" Offset="0" />
+                                    <GradientStop Color="#FFCCCCCC" Offset=".9" />
+                                </LinearGradientBrush>
+                            </Grid.Background>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <local:ChromeTabPanel IsItemsHost="True">
-                                <local:ChromeTabPanel.Background>
-                                    <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
-                                        <GradientStop Color="#FFEEEEEE" Offset="0" />
-                                        <GradientStop Color="#FFCCCCCC" Offset=".9" />
-                                    </LinearGradientBrush>
-                                </local:ChromeTabPanel.Background>
-                            </local:ChromeTabPanel>
-                            <Button Grid.Column="1" Style="{DynamicResource AddButtonStyle}" Width="20" Height="12" Margin="0,0,0,0">
+                            <local:ChromeTabPanel IsItemsHost="True"/>
+                            <Button Grid.Column="1" Style="{StaticResource NewButtonStyle}" Width="20" Height="12" Margin="-17,0,0,0">
 
                             </Button>
                         </Grid>
