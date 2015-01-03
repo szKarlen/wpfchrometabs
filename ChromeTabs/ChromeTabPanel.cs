@@ -56,11 +56,11 @@ namespace ChromeTabs
 
         public ChromeTabPanel()
         {
-            this.maxTabWidth = 125.0;
+            this.maxTabWidth = 180.0;
             this.minTabWidth = 40.0;
             this.leftMargin = 50.0;
-            this.rightMargin = 30.0;
-            this.overlap = 10.0;
+            this.rightMargin = 0.0;
+            this.overlap = 20.0;
             this.defaultMeasureHeight = 30.0;
 
             ComponentResourceKey key = new ComponentResourceKey(typeof(ChromeTabPanel), "addButtonStyle");
