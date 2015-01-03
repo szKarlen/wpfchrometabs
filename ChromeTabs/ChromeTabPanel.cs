@@ -341,6 +341,7 @@ namespace ChromeTabs
                 ChromeTabItem item = ItemsControl.ContainerFromElement(this.ParentTabControl, depObj) as ChromeTabItem;
                 if(item != null)
                 {
+                    depObj.SetValue(System.Windows.Shell.WindowChrome.IsHitTestVisibleInChromeProperty, true);
                     KeyboardNavigation.SetTabIndex(item, i);
                 }
             }

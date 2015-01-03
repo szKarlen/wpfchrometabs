@@ -2,7 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ChromeTabs"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework">
     <Style x:Key="NewButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background">
             <Setter.Value>
@@ -73,24 +74,18 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabControl}">
-                    <Grid>
+                    <Grid Background="{TemplateBinding Background}">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
+                            <RowDefinition Height="30" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Grid Margin="0,0,0,0" Width="auto" Height="30" MinWidth="100">
-                            <Grid.Background>
-                                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
-                                    <GradientStop Color="#FFEEEEEE" Offset="0" />
-                                    <GradientStop Color="#FFCCCCCC" Offset=".9" />
-                                </LinearGradientBrush>
-                            </Grid.Background>
+                        <Grid Margin="0,0,110,0" Width="auto" Height="30" MinWidth="100">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <local:ChromeTabPanel IsItemsHost="True"/>
-                            <Button Grid.Column="1" Style="{StaticResource NewButtonStyle}" Width="20" Height="12" Margin="-17,0,0,0">
+                            <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False"/>
+                            <Button Grid.Column="1" Style="{StaticResource NewButtonStyle}" Width="20" Height="12" Margin="-10,0,0,0" HorizontalAlignment="Left">
 
                             </Button>
                         </Grid>
@@ -107,7 +102,37 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabItem}">
-                    <Grid>
+                    <Grid UseLayoutRounding="True" SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_left.png" Grid.Column="0">
+
+                        </Image>
+                        <Image x:Name="TabAlphaLeft" Source="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" Grid.Column="0">
+
+                        </Image>
+                        <Grid x:Name="TabBackground" Grid.Column="1" Background="White" Margin="0,4,0,0">
+
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_center.png" TileMode="FlipX"></ImageBrush>
+                            </Grid.Background>
+                            <!--<Image Source="/ChromeTabs;component/Assets/google_favicon_128.png" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,3,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True"></Image>-->
+                            <TextBlock Text="{TemplateBinding Header}" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="18,2,0,0"></TextBlock>
+                        </Grid>
+                        <Image Source="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_right.png" Grid.Column="2">
+
+                        </Image>
+                        <Image x:Name="TabAlphaRight" Source="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" Grid.Column="2">
+
+                        </Image>
+                        <Button KeyboardNavigation.IsTabStop="False" Margin="0" Style="{StaticResource CloseButtonStyle}" Grid.Column="1" Command="{x:Static local:ChromeTabItem.CloseTabCommand}" HorizontalAlignment="Right" />
+                    </Grid>
+                    <!--<Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="*" />
@@ -135,14 +160,17 @@
                             </Path.RenderTransform>
                         </Path>
                         <Label Margin="10 0 0 0" VerticalAlignment="Center" Content="{TemplateBinding Header}" Grid.Column="1" />
-                        <Button KeyboardNavigation.IsTabStop="False" Margin="0 0 10 0" Style="{StaticResource CloseButtonStyle}" Grid.Column="2" Command="{x:Static local:ChromeTabItem.CloseTabCommand}" />
-                    </Grid>
+                        
+                    </Grid>-->
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Fill" TargetName="TabFill" Value="White" />
+                        <Trigger Property="IsSelected" Value="False">
+                            <!--<Setter Property="Fill" TargetName="TabFill" Value="White" />
                             <Setter Property="Margin" TargetName="TabFill" Value="0 0 0 -1" />
                             <Setter Property="Margin" TargetName="TabPath" Value="0" />
-                            <Setter Property="Stroke" TargetName="TabHighlight" Value="Transparent" />
+                            <Setter Property="Stroke" TargetName="TabHighlight" Value="Transparent" />-->
+                            <Setter TargetName="TabAlphaLeft" Property="Opacity" Value="0.45"></Setter>
+                            <Setter TargetName="TabAlphaRight" Property="Opacity" Value="0.45"></Setter>
+                            <Setter TargetName="TabBackground" Property="Opacity" Value="0.45"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
