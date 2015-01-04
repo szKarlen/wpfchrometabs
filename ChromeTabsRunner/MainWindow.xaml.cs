@@ -38,13 +38,13 @@ namespace ChromiumTabsRunner
 
         private object GenerateNewItem()
         {
-            object itemToAdd = new Button { Content = "Moo " + this.newTabNumber };
+            object itemToAdd = new WebBrowser() { Source = new Uri("http://google.com") };
             Interlocked.Increment(ref this.newTabNumber);
-            if(this.title.Text.Length > 0)
+            //if(this.title.Text.Length > 0)
             {
                 itemToAdd = new ChromeTabs.ChromeTabItem
                 {
-                    Header = this.title.Text,
+                    Header = "Web Browser",
                     Content = itemToAdd
                 };
             }
@@ -57,5 +57,16 @@ namespace ChromiumTabsRunner
         }
 
         private int newTabNumber;
+
+        private void NewTabCommand_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void NewTabCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.chrometabs.AddTab(this.GenerateNewItem(), false);
+            this.chrometabs.SelectedIndex = this.chrometabs.Items.Count - 1;
+        }
     }
 }

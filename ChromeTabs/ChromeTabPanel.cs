@@ -97,7 +97,7 @@ namespace ChromeTabs
         {
             double activeWidth = finalSize.Width - this.leftMargin - this.rightMargin;
             this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * overlap)/ this.Children.Count, this.minTabWidth), this.maxTabWidth);
-            ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
+            //ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
             this.finalSize = finalSize;
             double offset = leftMargin;
             foreach (UIElement element in this.Children)
@@ -115,7 +115,7 @@ namespace ChromeTabs
         {
             double activeWidth = double.IsPositiveInfinity(availableSize.Width) ? 500 : availableSize.Width - this.leftMargin - this.rightMargin;
             this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * overlap) / this.Children.Count, this.minTabWidth), this.maxTabWidth);
-            ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
+            //ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
             double height = double.IsPositiveInfinity(availableSize.Height) ? this.defaultMeasureHeight : availableSize.Height;
             Size resultSize = new Size(0, availableSize.Height);
             foreach (UIElement child in this.Children)

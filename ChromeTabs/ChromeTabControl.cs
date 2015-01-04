@@ -48,10 +48,25 @@ namespace ChromeTabs
     /// </summary>
     public class ChromeTabControl : Selector
     {
-        internal static readonly DependencyPropertyKey CanAddTabPropertyKey = DependencyProperty.RegisterReadOnly("CanAddTab", typeof(bool), typeof(ChromeTabControl), new PropertyMetadata(true));
-        public static readonly DependencyProperty CanAddTabProperty = CanAddTabPropertyKey.DependencyProperty;
         public static readonly DependencyProperty SelectedContentProperty = DependencyProperty.Register("SelectedContent", typeof(object), typeof(ChromeTabControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
 
+        private static readonly RoutedUICommand newTabCommand = new RoutedUICommand("New tab", "NewTab", typeof(ChromeTabControl));
+
+        public static RoutedUICommand NewTabCommand
+        {
+            get { return newTabCommand; }
+        }
+
+        public bool CanAddTabs
+        {
+            get { return (bool)GetValue(CanAddTabsProperty); }
+            set { SetValue(CanAddTabsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CanAddTabs.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanAddTabsProperty =
+            DependencyProperty.Register("CanAddTabs", typeof(bool), typeof(ChromeTabControl), new PropertyMetadata(true));
+        
         static ChromeTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ChromeTabControl), new FrameworkPropertyMetadata(typeof(ChromeTabControl)));
@@ -59,7 +74,7 @@ namespace ChromeTabs
 
         public void AddTab(object tab, bool select)
         {
-            if(!CanAddTab)
+            if(!CanAddTabs)
             {
                 return;
             }
@@ -68,11 +83,6 @@ namespace ChromeTabs
             {
                 this.SelectedIndex = this.Items.Count - 1;
             }
-        }
-
-        public bool CanAddTab
-        {
-            get { return (bool)GetValue(CanAddTabProperty); }
         }
 
         public void RemoveTab(object tab)
@@ -155,11 +165,6 @@ namespace ChromeTabs
                 this.AsTabItem(this.Items[i]).Margin = new Thickness(0);
             }
             this.SelectedItem = tab;
-        }
-
-        internal void SetCanAddTab(bool value)
-        {
-            SetValue(CanAddTabPropertyKey, value);
         }
 
         protected override DependencyObject GetContainerForItemOverride()

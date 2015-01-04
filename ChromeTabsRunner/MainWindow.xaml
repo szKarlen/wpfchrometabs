@@ -16,15 +16,18 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="my:ChromeTabControl.NewTabCommand" CanExecute="NewTabCommand_OnCanExecute" Executed="NewTabCommand_OnExecuted"></CommandBinding>
+    </Window.CommandBindings>
     <Grid Margin="7,16,7,7">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+            <!--<RowDefinition Height="30" />
+            <RowDefinition Height="30" />-->
         </Grid.RowDefinitions>
         <my:ChromeTabControl Name="chrometabs" shell:WindowChrome.IsHitTestVisibleInChrome="True">
             <my:ChromeTabItem Header="One" Background="Orange">
-                <Button>Uno</Button>
+                <!--<WebBrowser Source="http://google.com"></WebBrowser>-->
             </my:ChromeTabItem>
             <my:ChromeTabItem Header="Two" Background="Green">
                 <Label>Dos</Label>
@@ -37,7 +40,7 @@
                 <Label>Quattro</Label>
             </my:ChromeTabItem>
         </my:ChromeTabControl>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <!--<StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Click="HandleRemoveTab" Margin="2">Close Selected Tab</Button>
             <Button Click="HandleAddTab" Margin="2" IsEnabled="{Binding Path=CanAddTab, ElementName=chrometabs}">Add Tab</Button>
             <Button Click="HandleAddTabAndSelect" Margin="2" IsEnabled="{Binding Path=CanAddTab, ElementName=chrometabs}">Add Tab And Select</Button>
@@ -45,6 +48,6 @@
         <DockPanel LastChildFill="True" Grid.Row="2">
             <Label DockPanel.Dock="Left">Title</Label>
             <TextBox Name="title"></TextBox>
-        </DockPanel>
+        </DockPanel>-->
     </Grid>
 </Window>

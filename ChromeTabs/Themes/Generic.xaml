@@ -74,6 +74,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabControl}">
+                    <ControlTemplate.Resources>
+                        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+                    </ControlTemplate.Resources>
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
@@ -85,8 +88,10 @@
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False"/>
-                            <Button Style="{StaticResource NewButtonStyle}" Grid.Column="1" UseLayoutRounding="True" SnapsToDevicePixels="True" Margin="-10,0,0,0" Width="34" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center">
-
+                            <Button Style="{StaticResource NewButtonStyle}" Command="{x:Static local:ChromeTabControl.NewTabCommand}" Grid.Column="1" 
+                                    UseLayoutRounding="True" SnapsToDevicePixels="True" 
+                                    Margin="-10,0,0,0" Width="34" Height="18" 
+                                    HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding CanAddTabs, Converter={StaticResource BoolToVis}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ChromeTabControl}}}">
                             </Button>
                         </Grid>
                         <Grid Grid.Row="1">
