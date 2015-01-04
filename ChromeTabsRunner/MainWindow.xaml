@@ -4,7 +4,7 @@
         xmlns:my="clr-namespace:ChromeTabs;assembly=ChromeTabs"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:local="clr-namespace:ChromiumTabsRunner"
-        Title="MainWindow" Height="350" Width="525" Background="Transparent">
+        Title="MainWindow" Height="350" Width="525" Background="Transparent" MinWidth="290">
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="shell:WindowChrome.WindowChrome">

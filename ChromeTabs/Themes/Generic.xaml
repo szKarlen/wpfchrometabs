@@ -85,7 +85,7 @@
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False"/>
-                            <Button Grid.Column="1" Style="{StaticResource NewButtonStyle}" Width="35" Height="19" Margin="-10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <Button Style="{StaticResource NewButtonStyle}" Grid.Column="1" UseLayoutRounding="True" SnapsToDevicePixels="True" Margin="-10,0,0,0" Width="34" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center">
 
                             </Button>
                         </Grid>
@@ -102,72 +102,41 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabItem}">
-                    <Grid UseLayoutRounding="True" SnapsToDevicePixels="True">
+                    <Grid UseLayoutRounding="True" SnapsToDevicePixels="True" Height="30">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Source="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_left.png" Grid.Column="0">
+                        <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_left.png" Grid.Column="0">
 
                         </Image>
-                        <Image x:Name="TabAlphaLeft" Source="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" Grid.Column="0">
+                        <Image x:Name="TabAlphaLeft" Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" Grid.Column="0">
 
                         </Image>
-                        <Grid x:Name="TabBackground" Grid.Column="1" Background="White" Margin="0,4,0,0">
+                        <Grid Grid.Column="1" Margin="0,0,0,1">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_center.png" TileMode="FlipX"></ImageBrush>
+                            </Grid.Background>
+                        </Grid>
+                        <Grid x:Name="TabBackground" Grid.Column="1" Margin="0,4,0,0" Background="White">
 
                         </Grid>
                         <Grid Grid.Column="1">
-                            <Grid.Background>
-                                <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_center.png" TileMode="FlipX"></ImageBrush>
-                            </Grid.Background>
-                            <!--<Image Source="/ChromeTabs;component/Assets/google_favicon_128.png" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,3,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True"></Image>-->
-                            <TextBlock Text="{TemplateBinding Header}" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="18,2,0,0"></TextBlock>
+
+                            <!--<Image Source="Assets/google_favicon_128.png" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,3,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True"></Image>-->
+                            <TextBlock Text="Web site 1" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="18,2,0,0"></TextBlock>
                         </Grid>
-                        <Image Source="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_right.png" Grid.Column="2">
+                        <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_right.png" Grid.Column="2">
 
                         </Image>
-                        <Image x:Name="TabAlphaRight" Source="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" Grid.Column="2">
+                        <Image x:Name="TabAlphaRight" Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" Grid.Column="2">
 
                         </Image>
                         <Button KeyboardNavigation.IsTabStop="False" Margin="0" Style="{StaticResource CloseButtonStyle}" Grid.Column="1" Command="{x:Static local:ChromeTabItem.CloseTabCommand}" HorizontalAlignment="Right" />
                     </Grid>
-                    <!--<Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="5" />
-                        </Grid.ColumnDefinitions>
-                        <Path Name="TabFill" Margin="0 0 0 1" Grid.ColumnSpan="4" VerticalAlignment="Top" Stretch="Fill" Data="M39,96 C48.75,96 59.25,0 76,0 92.75,0 247,0 258,0 269,0 285.5,95.75 295,96">
-                            <Path.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FFEEEEEE" Offset="0"/>
-                                    <GradientStop Color="#FFDDDDDD" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Path.Fill>
-                        </Path>
-                        <Path Name="TabPath" Grid.ColumnSpan="4" VerticalAlignment="Top" Stretch="Fill" Stroke="#FF999999" Data="M39,96 C48.75,96 59.25,0 76,0 92.75,0 247,0 258,0 269,0 285.5,95.75 295,96" />
-                        <Path Name="TabHighlight" Margin="0 0 0 1" Grid.ColumnSpan="4" VerticalAlignment="Top" Stretch="Fill" Stroke="White" Data="M39,96 C48.75,96 59.25,0 76,0 92.75,0 247,0 258,0 269,0 285.5,95.75 295,96">
-                            <Path.RenderTransformOrigin>
-                                <Point X=".5" Y=".5" />
-                            </Path.RenderTransformOrigin>
-                            <Path.RenderTransform>
-                                <TransformGroup>
-                                    <TranslateTransform Y=".5" />
-                                    <ScaleTransform ScaleX=".96" ScaleY=".94" />
-                                </TransformGroup>
-                            </Path.RenderTransform>
-                        </Path>
-                        <Label Margin="10 0 0 0" VerticalAlignment="Center" Content="{TemplateBinding Header}" Grid.Column="1" />
-                        
-                    </Grid>-->
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="False">
-                            <!--<Setter Property="Fill" TargetName="TabFill" Value="White" />
-                            <Setter Property="Margin" TargetName="TabFill" Value="0 0 0 -1" />
-                            <Setter Property="Margin" TargetName="TabPath" Value="0" />
-                            <Setter Property="Stroke" TargetName="TabHighlight" Value="Transparent" />-->
                             <Setter TargetName="TabAlphaLeft" Property="Opacity" Value="0.45"></Setter>
                             <Setter TargetName="TabAlphaRight" Property="Opacity" Value="0.45"></Setter>
                             <Setter TargetName="TabBackground" Property="Opacity" Value="0.45"></Setter>
