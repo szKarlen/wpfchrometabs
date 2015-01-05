@@ -110,6 +110,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabItem}">
+                    <ControlTemplate.Resources>
+                        <Style TargetType="Image">
+                            <Setter Property="Stretch" Value="UniformToFill"></Setter>
+                        </Style>
+                    </ControlTemplate.Resources>
                     <Grid UseLayoutRounding="True" SnapsToDevicePixels="True" Height="30">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
