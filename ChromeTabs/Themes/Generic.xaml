@@ -73,6 +73,7 @@
     <Style TargetType="{x:Type local:ChromeTabControl}">
         <Setter Property="MinTabWidth" Value="40"></Setter>
         <Setter Property="MaxTabWidth" Value="180"></Setter>
+        <Setter Property="Overlap" Value="20"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabControl}">
