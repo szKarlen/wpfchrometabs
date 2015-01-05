@@ -52,13 +52,14 @@ namespace ChromeTabs
         public bool IsReorderingTabs
         {
             get { return (bool)GetValue(IsReorderingTabsProperty); }
-            set { SetValue(IsReorderingTabsProperty, value); }
+            private set { SetValue(IsReorderingTabsProperty, value); }
         }
 
+        internal static readonly DependencyPropertyKey IsReorderingTabsPropertyKey = DependencyProperty.RegisterReadOnly("IsReorderingTabs", typeof(bool), typeof(ChromeTabPanel), new PropertyMetadata(false));
+
         // Using a DependencyProperty as the backing store for IsReorderingTabs.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsReorderingTabsProperty =
-            DependencyProperty.Register("IsReorderingTabs", typeof(bool), typeof(ChromeTabPanel), new PropertyMetadata(false));
-        
+        public static readonly DependencyProperty IsReorderingTabsProperty = IsReorderingTabsPropertyKey.DependencyProperty;
+
         static ChromeTabPanel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ChromeTabPanel), new FrameworkPropertyMetadata(typeof(ChromeTabPanel)));
