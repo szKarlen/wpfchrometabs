@@ -52,7 +52,7 @@ namespace ChromeTabs
         public bool IsReorderingTabs
         {
             get { return (bool)GetValue(IsReorderingTabsProperty); }
-            private set { SetValue(IsReorderingTabsProperty, value); }
+            private set { SetValue(IsReorderingTabsPropertyKey, value); }
         }
 
         internal static readonly DependencyPropertyKey IsReorderingTabsPropertyKey = DependencyProperty.RegisterReadOnly("IsReorderingTabs", typeof(bool), typeof(ChromeTabPanel), new PropertyMetadata(false));
