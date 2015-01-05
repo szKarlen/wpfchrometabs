@@ -139,8 +139,8 @@
 
                         </Grid>
                         <Grid Grid.Column="1">
-                            <!--<Image Source="Assets/google_favicon_128.png" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,3,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True"></Image>-->
-                            <TextBlock Text="Web site 1" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="18,2,0,0"></TextBlock>
+                            <Image x:Name="Icon" Source="{TemplateBinding Icon}" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,3,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True"></Image>
+                            <TextBlock x:Name="Header" Text="Web site 1" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="18,2,0,0"></TextBlock>
                         </Grid>
                         <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_right.png" Grid.Column="2">
 
@@ -178,6 +178,12 @@
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="TabBackground" Property="Background" Value="White"></Setter>
+                        </Trigger>
+                        <Trigger Property="Icon" Value="{x:Null}">
+                            <Setter TargetName="Icon"
+                                        Property="Visibility"
+                                        Value="Collapsed"/>
+                            <Setter TargetName="Header" Property="Margin" Value="0,2,0,0"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
