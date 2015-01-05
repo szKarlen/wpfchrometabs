@@ -49,6 +49,16 @@ namespace ChromeTabs
     [ToolboxItem(false)]
     public class ChromeTabPanel : Panel
     {
+        public bool IsReorderingTabs
+        {
+            get { return (bool)GetValue(IsReorderingTabsProperty); }
+            set { SetValue(IsReorderingTabsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsReorderingTabs.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsReorderingTabsProperty =
+            DependencyProperty.Register("IsReorderingTabs", typeof(bool), typeof(ChromeTabPanel), new PropertyMetadata(false));
+        
         static ChromeTabPanel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ChromeTabPanel), new FrameworkPropertyMetadata(typeof(ChromeTabPanel)));
@@ -258,8 +268,10 @@ namespace ChromeTabs
                         this.draggedTab = null;
                         this.captureGuard = 0;
                         ParentTabControl.MoveTab(this.originalIndex, this.slideIndex - 1);
+                        IsReorderingTabs = false;
                     }
                 };
+                IsReorderingTabs = true;
                 Reanimate(this.draggedTab, offset, .1, completed);
             }
             else
