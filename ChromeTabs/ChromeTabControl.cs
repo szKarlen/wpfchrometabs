@@ -52,14 +52,14 @@ namespace ChromeTabs
 
         private static readonly RoutedUICommand newTabCommand = new RoutedUICommand("New tab", "NewTab", typeof(ChromeTabControl));
 
-        public double Overlap
+        public double TabsOverlap
         {
-            get { return (double)GetValue(OverlapProperty); }
-            set { SetValue(OverlapProperty, value); }
+            get { return (double)GetValue(TabsOverlapProperty); }
+            set { SetValue(TabsOverlapProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Overlap.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty OverlapProperty = ChromeTabPanel.OverlapProperty.AddOwner(typeof(ChromeTabControl));
+        public static readonly DependencyProperty TabsOverlapProperty = ChromeTabPanel.TabsOverlapProperty.AddOwner(typeof(ChromeTabControl));
 
         public bool IsReorderingTabs
         {

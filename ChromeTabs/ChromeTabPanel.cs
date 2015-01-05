@@ -69,15 +69,15 @@ namespace ChromeTabs
         // Using a DependencyProperty as the backing store for IsReorderingTabs.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsReorderingTabsProperty = IsReorderingTabsPropertyKey.DependencyProperty;
 
-        public double Overlap
+        public double TabsOverlap
         {
-            get { return (double)GetValue(OverlapProperty); }
-            set { SetValue(OverlapProperty, value); }
+            get { return (double)GetValue(TabsOverlapProperty); }
+            set { SetValue(TabsOverlapProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Overlap.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty OverlapProperty =
-            DependencyProperty.Register("Overlap", typeof(double), typeof(ChromeTabPanel), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+        public static readonly DependencyProperty TabsOverlapProperty =
+            DependencyProperty.Register("TabsOverlap", typeof(double), typeof(ChromeTabPanel), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
         public double MaxTabWidth
         {
@@ -141,7 +141,7 @@ namespace ChromeTabs
         protected override Size ArrangeOverride(Size finalSize)
         {
             double activeWidth = finalSize.Width - this.Margin.Left - this.Margin.Right;
-            this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * this.Overlap)/ this.Children.Count, this.MinTabWidth), this.MaxTabWidth);
+            this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * this.TabsOverlap)/ this.Children.Count, this.MinTabWidth), this.MaxTabWidth);
             //ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
             this.finalSize = finalSize;
             double offset = Margin.Left;
@@ -151,7 +151,7 @@ namespace ChromeTabs
                 ChromeTabItem item = ItemsControl.ContainerFromElement(this.ParentTabControl, element) as ChromeTabItem;
                 thickness = item.Margin.Bottom;
                 element.Arrange(new Rect(offset, 0, this.currentTabWidth, finalSize.Height - thickness));
-                offset += this.currentTabWidth - this.Overlap;
+                offset += this.currentTabWidth - this.TabsOverlap;
             }
             return finalSize;
         }
@@ -159,7 +159,7 @@ namespace ChromeTabs
         protected override Size MeasureOverride(Size availableSize)
         {
             double activeWidth = double.IsPositiveInfinity(availableSize.Width) ? 500 : availableSize.Width - this.Margin.Left - this.Margin.Right;
-            this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * this.Overlap) / this.Children.Count, this.MinTabWidth), this.MaxTabWidth);
+            this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * this.TabsOverlap) / this.Children.Count, this.MinTabWidth), this.MaxTabWidth);
             //ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
             double height = double.IsPositiveInfinity(availableSize.Height) ? this.defaultMeasureHeight : availableSize.Height;
             Size resultSize = new Size(0, availableSize.Height);
@@ -168,7 +168,7 @@ namespace ChromeTabs
                 ChromeTabItem item = ItemsControl.ContainerFromElement(this.ParentTabControl, child) as ChromeTabItem;
                 Size tabSize = new Size(this.currentTabWidth, height - item.Margin.Bottom);
                 child.Measure(tabSize);
-                resultSize.Width += child.DesiredSize.Width - this.Overlap;
+                resultSize.Width += child.DesiredSize.Width - this.TabsOverlap;
             }
             return resultSize;
         }
@@ -232,7 +232,7 @@ namespace ChromeTabs
                     {
                         var diff = i - this.slideIndex;
                         var sign = diff == 0 ? 0 : diff / Math.Abs(diff);
-                        var bound = Math.Min(1, Math.Abs(diff)) * ((sign * this.currentTabWidth / 3) + ((Math.Abs(diff) < 2) ? 0 : (diff - sign) * (this.currentTabWidth - this.Overlap)));
+                        var bound = Math.Min(1, Math.Abs(diff)) * ((sign * this.currentTabWidth / 3) + ((Math.Abs(diff) < 2) ? 0 : (diff - sign) * (this.currentTabWidth - this.TabsOverlap)));
                         this.slideIntervals.Add(bound);
                     }
                     this.slideIntervals.Add(double.PositiveInfinity);
@@ -270,7 +270,7 @@ namespace ChromeTabs
                         ChromeTabItem shiftedTab = this.Children[this.slideIndex - diff] as ChromeTabItem;
                         if(shiftedTab != this.draggedTab)
                         {
-                            StickyReanimate(shiftedTab, changed * (this.currentTabWidth - this.Overlap), .01);
+                            StickyReanimate(shiftedTab, changed * (this.currentTabWidth - this.TabsOverlap), .01);
                         }
                     }
                 }
@@ -288,11 +288,11 @@ namespace ChromeTabs
                 double offset = 0;
                 if(this.slideIndex < this.originalIndex + 1)
                 {
-                    offset = this.slideIntervals[this.slideIndex + 1] - 2 * this.currentTabWidth / 3 + this.Overlap;
+                    offset = this.slideIntervals[this.slideIndex + 1] - 2 * this.currentTabWidth / 3 + this.TabsOverlap;
                 }
                 else if(this.slideIndex > this.originalIndex + 1)
                 {
-                    offset = this.slideIntervals[this.slideIndex - 1] + 2 * this.currentTabWidth / 3 - this.Overlap;
+                    offset = this.slideIntervals[this.slideIndex - 1] + 2 * this.currentTabWidth / 3 - this.TabsOverlap;
                 }
                 Console.WriteLine(offset);
                 Action completed = () =>
