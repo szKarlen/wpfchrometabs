@@ -87,7 +87,7 @@
                                 <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False"/>
+                            <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False" Overlap="{TemplateBinding Overlap}"/>
                             <Button Style="{StaticResource NewButtonStyle}" Command="{x:Static local:ChromeTabControl.NewTabCommand}" Grid.Column="1" 
                                     UseLayoutRounding="True" SnapsToDevicePixels="True" 
                                     Margin="-10,0,0,0" Width="34" Height="18" 
