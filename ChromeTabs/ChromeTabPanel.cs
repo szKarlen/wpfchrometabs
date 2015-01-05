@@ -281,7 +281,7 @@ namespace ChromeTabs
         {
             base.OnPreviewMouseLeftButtonUp(e);
             this.draggingWindow = false;
-            if(this.IsMouseCaptured)
+            if(this.IsMouseCaptured && this.slideIntervals != null)
             {
                 Mouse.Capture(null);
 
