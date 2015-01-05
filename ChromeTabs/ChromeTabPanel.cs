@@ -78,7 +78,27 @@ namespace ChromeTabs
         // Using a DependencyProperty as the backing store for Overlap.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OverlapProperty =
             DependencyProperty.Register("Overlap", typeof(double), typeof(ChromeTabPanel), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
-        
+
+        public double MaxTabWidth
+        {
+            get { return (double)GetValue(MaxTabWidthProperty); }
+            set { SetValue(MaxTabWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MaxTabWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaxTabWidthProperty =
+            DependencyProperty.Register("MaxTabWidth", typeof(double), typeof(ChromeTabPanel), new PropertyMetadata(180.0));
+
+        public double MinTabWidth
+        {
+            get { return (double)GetValue(MinTabWidthProperty); }
+            set { SetValue(MinTabWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MinTabWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinTabWidthProperty =
+            DependencyProperty.Register("MinTabWidth", typeof(double), typeof(ChromeTabPanel), new PropertyMetadata(40.0));
+
         static ChromeTabPanel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ChromeTabPanel), new FrameworkPropertyMetadata(typeof(ChromeTabPanel)));
@@ -86,10 +106,6 @@ namespace ChromeTabs
 
         public ChromeTabPanel()
         {
-            this.maxTabWidth = 180.0;
-            this.minTabWidth = 40.0;
-            this.leftMargin = 50.0;
-            this.rightMargin = 0.0;
             this.defaultMeasureHeight = 30.0;
         }
 
@@ -124,11 +140,11 @@ namespace ChromeTabs
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            double activeWidth = finalSize.Width - this.leftMargin - this.rightMargin;
-            this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * this.Overlap)/ this.Children.Count, this.minTabWidth), this.maxTabWidth);
+            double activeWidth = finalSize.Width - this.Margin.Left - this.Margin.Right;
+            this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * this.Overlap)/ this.Children.Count, this.MinTabWidth), this.MaxTabWidth);
             //ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
             this.finalSize = finalSize;
-            double offset = leftMargin;
+            double offset = Margin.Left;
             foreach (UIElement element in this.Children)
             {
                 double thickness = 0.0;
@@ -142,8 +158,8 @@ namespace ChromeTabs
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            double activeWidth = double.IsPositiveInfinity(availableSize.Width) ? 500 : availableSize.Width - this.leftMargin - this.rightMargin;
-            this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * this.Overlap) / this.Children.Count, this.minTabWidth), this.maxTabWidth);
+            double activeWidth = double.IsPositiveInfinity(availableSize.Width) ? 500 : availableSize.Width - this.Margin.Left - this.Margin.Right;
+            this.currentTabWidth = Math.Min(Math.Max((activeWidth + (this.Children.Count - 1) * this.Overlap) / this.Children.Count, this.MinTabWidth), this.MaxTabWidth);
             //ParentTabControl.SetCanAddTab(this.currentTabWidth > this.minTabWidth);
             double height = double.IsPositiveInfinity(availableSize.Height) ? this.defaultMeasureHeight : availableSize.Height;
             Size resultSize = new Size(0, availableSize.Height);
@@ -386,10 +402,6 @@ namespace ChromeTabs
 
         private bool draggingWindow;
         private Size finalSize;
-        private double leftMargin;
-        private double rightMargin;
-        private double maxTabWidth;
-        private double minTabWidth;
         private double defaultMeasureHeight;
         private double currentTabWidth;
         private int captureGuard;

@@ -68,7 +68,25 @@ namespace ChromeTabs
 
         // Using a DependencyProperty as the backing store for IsReorderingTabs.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsReorderingTabsProperty = ChromeTabPanel.IsReorderingTabsProperty.AddOwner(typeof(ChromeTabControl));
-        
+
+        public double MaxTabWidth
+        {
+            get { return (double)GetValue(MaxTabWidthProperty); }
+            set { SetValue(MaxTabWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MaxTabWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaxTabWidthProperty = ChromeTabPanel.MaxTabWidthProperty.AddOwner(typeof(ChromeTabControl));
+
+        public double MinTabWidth
+        {
+            get { return (double)GetValue(MinTabWidthProperty); }
+            set { SetValue(MinTabWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MinTabWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinTabWidthProperty = ChromeTabPanel.MinTabWidthProperty.AddOwner(typeof(ChromeTabControl));
+
         public static RoutedUICommand NewTabCommand
         {
             get { return newTabCommand; }

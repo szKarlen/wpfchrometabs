@@ -71,6 +71,8 @@
     </Style>
 
     <Style TargetType="{x:Type local:ChromeTabControl}">
+        <Setter Property="MinTabWidth" Value="40"></Setter>
+        <Setter Property="MaxTabWidth" Value="180"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabControl}">
@@ -87,7 +89,7 @@
                                 <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False" Overlap="{TemplateBinding Overlap}"/>
+                            <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False" Overlap="{TemplateBinding Overlap}" MinTabWidth="{TemplateBinding MinTabWidth}" MaxTabWidth="{TemplateBinding MaxTabWidth}"/>
                             <Button Style="{StaticResource NewButtonStyle}" Command="{x:Static local:ChromeTabControl.NewTabCommand}" Grid.Column="1" 
                                     UseLayoutRounding="True" SnapsToDevicePixels="True" 
                                     Margin="-10,0,0,0" Width="34" Height="18" 
