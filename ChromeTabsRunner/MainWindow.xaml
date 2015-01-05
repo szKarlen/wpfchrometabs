@@ -4,7 +4,7 @@
         xmlns:my="clr-namespace:ChromeTabs;assembly=ChromeTabs"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:local="clr-namespace:ChromiumTabsRunner"
-        Title="MainWindow" Height="350" Width="525" Background="Transparent" MinWidth="290">
+        Title="MainWindow" Height="350" Width="525" Background="Transparent" MinWidth="290" StateChanged="MainWindow_OnStateChanged">
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="shell:WindowChrome.WindowChrome">
@@ -19,7 +19,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="my:ChromeTabControl.NewTabCommand" CanExecute="NewTabCommand_OnCanExecute" Executed="NewTabCommand_OnExecuted"></CommandBinding>
     </Window.CommandBindings>
-    <Grid Margin="7,16,7,7">
+    <Grid x:Name="layout" Margin="7,16,7,7">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <!--<RowDefinition Height="30" />

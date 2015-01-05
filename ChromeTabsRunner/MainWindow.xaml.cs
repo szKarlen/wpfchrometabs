@@ -68,5 +68,12 @@ namespace ChromiumTabsRunner
             this.chrometabs.AddTab(this.GenerateNewItem(), false);
             this.chrometabs.SelectedIndex = this.chrometabs.Items.Count - 1;
         }
+
+        private void MainWindow_OnStateChanged(object sender, EventArgs e)
+        {
+            layout.Margin = this.WindowState == WindowState.Maximized 
+                ? new Thickness(7.0, 6.0, 7.0, 7.0) 
+                : new Thickness(7.0, 16.0, 7.0, 7.0);
+        }
     }
 }
