@@ -108,6 +108,8 @@
     </Style>
     
     <Style TargetType="{x:Type local:ChromeTabItem}">
+        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+        <Setter Property="UseLayoutRounding" Value="True"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabItem}">
@@ -125,35 +127,57 @@
                         <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_left.png" Grid.Column="0">
 
                         </Image>
-                        <Image x:Name="TabAlphaLeft" Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" Grid.Column="0">
-
-                        </Image>
+                        <Grid x:Name="TabAlphaLeft" Grid.Column="0">
+                            
+                        </Grid>
                         <Grid Grid.Column="1" Margin="0,0,0,1">
                             <Grid.Background>
                                 <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_center.png" TileMode="FlipX"></ImageBrush>
                             </Grid.Background>
                         </Grid>
-                        <Grid x:Name="TabBackground" Grid.Column="1" Margin="0,4,0,0" Background="White">
+                        <Grid x:Name="TabBackground" Grid.Column="1" Margin="0,4,0,0">
 
                         </Grid>
                         <Grid Grid.Column="1">
-
                             <!--<Image Source="Assets/google_favicon_128.png" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,3,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True"></Image>-->
                             <TextBlock Text="Web site 1" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="18,2,0,0"></TextBlock>
                         </Grid>
                         <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_right.png" Grid.Column="2">
 
                         </Image>
-                        <Image x:Name="TabAlphaRight" Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" Grid.Column="2">
+                        <Grid x:Name="TabAlphaRight" Grid.Column="2">
 
-                        </Image>
+                        </Grid>
                         <Button KeyboardNavigation.IsTabStop="False" Margin="0" Style="{StaticResource CloseButtonStyle}" Grid.Column="1" Command="{x:Static local:ChromeTabItem.CloseTabCommand}" HorizontalAlignment="Right" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="False">
-                            <Setter TargetName="TabAlphaLeft" Property="Opacity" Value="0.45"></Setter>
-                            <Setter TargetName="TabAlphaRight" Property="Opacity" Value="0.45"></Setter>
-                            <Setter TargetName="TabBackground" Property="Opacity" Value="0.45"></Setter>
+                            <Setter TargetName="TabAlphaLeft" Property="Background" Value="#D8DDE3"></Setter>
+                            <Setter TargetName="TabAlphaLeft" Property="OpacityMask">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" Stretch="UniformToFill"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="TabAlphaRight" Property="Background" Value="#D8DDE3"></Setter>
+                            <Setter TargetName="TabAlphaRight" Property="OpacityMask">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" Stretch="UniformToFill"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="TabBackground" Property="Background" Value="#D8DDE3"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="TabAlphaLeft" Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" Stretch="UniformToFill"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="TabAlphaRight" Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" Stretch="UniformToFill"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="TabBackground" Property="Background" Value="White"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
