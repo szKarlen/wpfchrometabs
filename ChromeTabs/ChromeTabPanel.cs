@@ -55,7 +55,16 @@ namespace ChromeTabs
             private set { SetValue(IsReorderingTabsPropertyKey, value); }
         }
 
-        internal static readonly DependencyPropertyKey IsReorderingTabsPropertyKey = DependencyProperty.RegisterReadOnly("IsReorderingTabs", typeof(bool), typeof(ChromeTabPanel), new PropertyMetadata(false));
+        internal static readonly DependencyPropertyKey IsReorderingTabsPropertyKey = DependencyProperty.RegisterReadOnly("IsReorderingTabs", typeof(bool), typeof(ChromeTabPanel), new PropertyMetadata(false, IsReorderingChangedCallback));
+
+        private static void IsReorderingChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            var chromeTabPanel = dependencyObject as ChromeTabPanel;
+            if (chromeTabPanel != null)
+            {
+                chromeTabPanel.ParentTabControl.SetValue(ChromeTabPanel.IsReorderingTabsPropertyKey, dependencyPropertyChangedEventArgs.NewValue);
+            }
+        }
 
         // Using a DependencyProperty as the backing store for IsReorderingTabs.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsReorderingTabsProperty = IsReorderingTabsPropertyKey.DependencyProperty;
@@ -193,6 +202,7 @@ namespace ChromeTabs
             Point nowPoint = e.GetPosition(this);
             Thickness margin = new Thickness(nowPoint.X - this.downPoint.X, 0, this.downPoint.X - nowPoint.X, 0);
             this.draggedTab.Margin = margin;
+            IsReorderingTabs = true;
             if(margin.Left != 0)
             {
                 int guardValue = Interlocked.Increment(ref this.captureGuard);
@@ -281,7 +291,6 @@ namespace ChromeTabs
                         IsReorderingTabs = false;
                     }
                 };
-                IsReorderingTabs = true;
                 Reanimate(this.draggedTab, offset, .1, completed);
             }
             else

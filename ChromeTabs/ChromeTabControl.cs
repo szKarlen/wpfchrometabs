@@ -61,6 +61,14 @@ namespace ChromeTabs
         // Using a DependencyProperty as the backing store for Overlap.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OverlapProperty = ChromeTabPanel.OverlapProperty.AddOwner(typeof(ChromeTabControl));
 
+        public bool IsReorderingTabs
+        {
+            get { return (bool)GetValue(IsReorderingTabsProperty); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsReorderingTabs.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsReorderingTabsProperty = ChromeTabPanel.IsReorderingTabsProperty.AddOwner(typeof(ChromeTabControl));
+        
         public static RoutedUICommand NewTabCommand
         {
             get { return newTabCommand; }
