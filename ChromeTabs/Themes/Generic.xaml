@@ -7,7 +7,7 @@
     <Style x:Key="NewButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background">
             <Setter.Value>
-                <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-newtab.png"></ImageBrush>
+                <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-newtab.png"></ImageBrush>
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -17,14 +17,14 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-newtab_hover.png"></ImageBrush>
+                                    <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-newtab_hover.png"></ImageBrush>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-newtab_pressed.png"></ImageBrush>
+                                    <ImageBrush ImageSource="/ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-newtab_pressed.png"></ImageBrush>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
@@ -73,7 +73,7 @@
     <Style TargetType="{x:Type local:ChromeTabControl}">
         <Setter Property="MinTabWidth" Value="40"></Setter>
         <Setter Property="MaxTabWidth" Value="180"></Setter>
-        <Setter Property="TabsOverlap" Value="20"></Setter>
+        <Setter Property="TabsOverlap" Value="12"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ChromeTabControl}">
@@ -82,10 +82,10 @@
                     </ControlTemplate.Resources>
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
+                            <RowDefinition Height="27" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Grid Margin="0,0,110,0" Width="auto" Height="30" MinWidth="100">
+                        <Grid Margin="0,0,110,0" Width="auto" Height="30" MinWidth="100" Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
                                 <ColumnDefinition Width="30"></ColumnDefinition>
@@ -93,7 +93,7 @@
                             <local:ChromeTabPanel IsItemsHost="True" shell:WindowChrome.IsHitTestVisibleInChrome="False" TabsOverlap="{TemplateBinding TabsOverlap}" MinTabWidth="{TemplateBinding MinTabWidth}" MaxTabWidth="{TemplateBinding MaxTabWidth}"/>
                             <Button Style="{StaticResource NewButtonStyle}" Command="{x:Static local:ChromeTabControl.NewTabCommand}" Grid.Column="1" 
                                     UseLayoutRounding="True" SnapsToDevicePixels="True" 
-                                    Margin="-10,0,0,0" Width="34" Height="18" 
+                                    Margin="-5,0,0,0" Width="34" Height="18" 
                                     HorizontalAlignment="Left" VerticalAlignment="Center" 
                                     Visibility="{Binding CanAddTabs, Converter={StaticResource BoolToVis}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ChromeTabControl}}}">
                             </Button>
@@ -118,34 +118,34 @@
                             <Setter Property="Stretch" Value="UniformToFill"></Setter>
                         </Style>
                     </ControlTemplate.Resources>
-                    <Grid UseLayoutRounding="True" SnapsToDevicePixels="True" Height="30">
+                    <Grid UseLayoutRounding="True" SnapsToDevicePixels="True" Height="27">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_left.png" Grid.Column="0">
+                        <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-tab_active_left.png" Grid.Column="0">
 
                         </Image>
-                        <Grid x:Name="TabAlphaLeft" Grid.Column="0">
+                        <Grid x:Name="TabAlphaLeft" Grid.Column="0" Margin="0,0,0,0">
                             
                         </Grid>
-                        <Grid Grid.Column="1" Margin="0,0,0,1">
+                        <Grid Grid.Column="1" Margin="0,0,0,0">
                             <Grid.Background>
-                                <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_center.png" TileMode="FlipX"></ImageBrush>
+                                <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-tab_active_center.png" TileMode="FlipX"></ImageBrush>
                             </Grid.Background>
                         </Grid>
-                        <Grid x:Name="TabBackground" Grid.Column="1" Margin="0,4,0,0">
+                        <Grid x:Name="TabBackground" Grid.Column="1" Margin="0,2,0,0">
 
                         </Grid>
                         <Grid Grid.Column="1">
                             <Image x:Name="Icon" Source="{TemplateBinding Icon}" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,3,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True"></Image>
-                            <TextBlock x:Name="Header" Text="Web site 1" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="18,2,0,0"></TextBlock>
+                            <TextBlock x:Name="Header" Text="Web site 1" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Margin="18,2,6,0"></TextBlock>
                         </Grid>
-                        <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_active_right.png" Grid.Column="2">
+                        <Image Source="ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-tab_active_right.png" Grid.Column="2">
 
                         </Image>
-                        <Grid x:Name="TabAlphaRight" Grid.Column="2">
+                        <Grid x:Name="TabAlphaRight" Grid.Column="2" Margin="0,0,0,0">
 
                         </Grid>
                         <Button KeyboardNavigation.IsTabStop="False" Margin="0" Style="{StaticResource CloseButtonStyle}" Grid.Column="1" Command="{x:Static local:ChromeTabItem.CloseTabCommand}" HorizontalAlignment="Right" />
@@ -155,13 +155,13 @@
                             <Setter TargetName="TabAlphaLeft" Property="Background" Value="#D8DDE3"></Setter>
                             <Setter TargetName="TabAlphaLeft" Property="OpacityMask">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" Stretch="UniformToFill"></ImageBrush>
+                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-tab_alpha_left.png" Stretch="UniformToFill"></ImageBrush>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="TabAlphaRight" Property="Background" Value="#D8DDE3"></Setter>
                             <Setter TargetName="TabAlphaRight" Property="OpacityMask">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" Stretch="UniformToFill"></ImageBrush>
+                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-tab_alpha_right.png" Stretch="UniformToFill"></ImageBrush>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="TabBackground" Property="Background" Value="#D8DDE3"></Setter>
@@ -169,12 +169,12 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="TabAlphaLeft" Property="Background">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_left.png" Stretch="UniformToFill"></ImageBrush>
+                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-tab_alpha_left.png" Stretch="UniformToFill"></ImageBrush>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="TabAlphaRight" Property="Background">
                                 <Setter.Value>
-                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_200_percent-mac-tab_alpha_right.png" Stretch="UniformToFill"></ImageBrush>
+                                    <ImageBrush ImageSource="ChromeTabs;component/Assets/chrome-app-theme-default_100_percent-tab_alpha_right.png" Stretch="UniformToFill"></ImageBrush>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="TabBackground" Property="Background" Value="White"></Setter>
@@ -183,7 +183,7 @@
                             <Setter TargetName="Icon"
                                         Property="Visibility"
                                         Value="Collapsed"/>
-                            <Setter TargetName="Header" Property="Margin" Value="0,2,0,0"></Setter>
+                            <Setter TargetName="Header" Property="Margin" Value="0,2,8,0"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
